@@ -9,7 +9,7 @@ const app = express();
 
 // ✅ CORS middleware
 app.use(cors({
-  origin: ["https://cadv.netlify.app", "http://localhost:3000"],
+  origin: ["https://cadv.netlify.app"],
   methods: ["GET", "POST"],
   credentials: true,
 }));
