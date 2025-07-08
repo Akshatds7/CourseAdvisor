@@ -4,15 +4,20 @@ import dotenv from "dotenv";
 import recommendRoute from "./routes/recommend.js";
 
 dotenv.config();
+
 const app = express();
 
-// ✅ FIX CORS HERE
+// ✅ CORS middleware
 app.use(cors({
   origin: ["https://cadv.netlify.app", "http://localhost:3000"],
   methods: ["GET", "POST"],
   credentials: true,
 }));
+
 app.use(express.json());
 app.use("/api", recommendRoute);
 
-app.listen(5000, () => console.log("Server started on port 5000"));
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
