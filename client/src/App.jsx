@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CourseCard from "./components/CourseCard";
-import "./App.css"; // Make sure you have this CSS file
+import "./App.css";
 
 function App() {
   const [form, setForm] = useState({
@@ -14,18 +14,25 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
-  // Apply dark mode to body
+  // 👇 Dynamically use local or Render backend
+  const API_BASE =
+    window.location.hostname === "localhost"
+      ? "http://localhost:5000"
+      : "https://courseadvisor.onrender.com";
+
+  // Toggle body dark-mode class
   useEffect(() => {
     document.body.classList.toggle("dark-mode", darkMode);
   }, [darkMode]);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/recommend", form);
+      const res = await axios.post(`${API_BASE}/api/recommend`, form);
       setCourses(res.data.suggestions || []);
     } catch (err) {
       console.error("Error fetching courses:", err);
