@@ -25,7 +25,7 @@ function App() {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("https://ai-course-api.onrender.com/api/recommend", form);
+      const res = await axios.post("http://localhost:5000/api/recommend", form);
       setCourses(res.data.suggestions || []);
     } catch (err) {
       console.error("Error fetching courses:", err);
