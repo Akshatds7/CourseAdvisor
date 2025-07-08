@@ -6,7 +6,10 @@ import recommendRoute from "./routes/recommend.js";
 dotenv.config();
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://cadv.netlify.app/", // ✅ Allow only your Netlify domain
+  methods: ["GET", "POST"],
+}));
 app.use(express.json());
 app.use("/api", recommendRoute);
 
